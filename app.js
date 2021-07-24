@@ -26,6 +26,5 @@ app.post('/email_post',function(req,res){
 })
 
 app.post('/ajaxSendEmail',function(req,res){
-    console.log(req.body.email);
-    res.send({result: 'ok', email: req.body.email});
+    res.json({result: 'ok', email: req.body.email});
 })

@@ -19,17 +19,19 @@
     <script>
         document.querySelector('.ajaxSend').addEventListener('click',function () {
             const inputEmail = document.querySelector('body form input:first-child').value;
-            sendAjax('http://127.0.0.1:3000/ajaxSendEmail', inputEmail);
+            sendAjax('/ajaxSendEmail', inputEmail);
         })
 
         const sendAjax = (url, data) => {
             const xhr = new XMLHttpRequest();
             xhr.open('POST',url);
             xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.send(JSON.stringify(data));
+            xhr.send(JSON.stringify({email: data}));
 
             xhr.addEventListener('load', () => {
-                console.log(xhr.responseText);
+                const result = JSON.parse(xhr.responseText);
+                if (result.result !== 'ok') return;
+                document.querySelector('.result').innerHTML = result.email;
             })
         }
     </script>
